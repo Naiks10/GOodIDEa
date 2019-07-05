@@ -8,7 +8,8 @@ import (
 )
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
-	t := template.ParseFiles("./templates/index.html" , "./templates/footer.html", "./templates/header.html")
+	t, err := template.ParseFiles("./templates/index.html" , "./templates/footer.html", "./templates/header.html")
+	if err != nil {}
 	if r.URL.Path != "/" {
         errorHandler(w, r, http.StatusNotFound)
         return
