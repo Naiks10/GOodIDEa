@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"html/template"
+	"os"
 )
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
@@ -18,11 +19,12 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	fmt.Println("listening default port (:3002)")
+	port := os.Getenv("PORT")
 	var a int
 	http.HandleFunc("/", IndexHandler)
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./assets/"))))
 	fmt.Println("Server Started!")
-	http.ListenAndServe(":3002", nil)
+	http.ListenAndServe(":" + port, nil)
 	fmt.Println("Server Stopped!")
 	fmt.Scan(&a)
 }
