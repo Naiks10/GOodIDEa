@@ -1,0 +1,58 @@
+{{define "header"}}
+    
+<html>
+    <head>
+            <link rel="stylesheet" href="assets/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <link rel="stylesheet" href="assets/css/my.css">
+    </head>
+    <body>
+        <script>
+            $(window).scroll(function() {
+  var y = $(window).scrollTop();
+  if (y > 0) {
+    $("#header").addClass('--not-top');
+  } else {
+    $("#header").removeClass('--not-top');
+  }
+});
+          </script>
+        <nav id="header" class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
+            <a class="navbar-brand" href="#">
+                <img src="/assets/img/im.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                <a class="text-info font-weight-bold">GO</a>od<a class="text-info font-weight-bold">IDE</a>a
+              </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Getting Started</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    IDE & Extensions
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Download IDE</a>
+                    <a class="dropdown-item" href="#">Marketplace</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Development</a>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">About Project</a>
+                </li>
+              </ul>
+              <form class="form-inline my-2 my-lg-0">
+                <button class="btn btn-outline-info my-2 my-sm-0 mr-3" type="submit">Sign Up</button>
+                <button class="btn btn-info my-2 my-sm-0" type="submit">Sign In</button>
+              </form>
+            </div>
+          </nav>
+          
+{{end}}
