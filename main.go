@@ -9,11 +9,10 @@ import (
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("./templates/index.html" , "./templates/footer.html", "./templates/header.html")
-	if err != nil {
-		//fmt.Fprintf(w, err.Error())
-		errorHandler(w, r, http.StatusNotFound)
+	if r.URL.Path != "/" {
+        errorHandler(w, r, http.StatusNotFound)
         return
-	}
+    }
 	t.ExecuteTemplate(w, "index", nil)
 }
 
