@@ -24,6 +24,7 @@ func main() {
 	http.HandleFunc("/", IndexHandler)
 	http.HandleFunc("/download", DownloadHandler)
 	http.HandleFunc("/getstart", GSHandler)
+	http.HandleFunc("/market", ExtensionsHandler)
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./assets/"))))
 	fmt.Println("Server Started!" + port)
 	http.ListenAndServe(":" + port, nil)
