@@ -10,11 +10,19 @@ import (
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("./templates/index.html" , "./templates/footer.html", "./templates/header.html")
 	if err != nil {
-		fmt.Fprintf(w, err.Error())
+		//fmt.Fprintf(w, err.Error())
+		errorHandler(w, r, http.StatusNotFound)
+        return
 	}
 	t.ExecuteTemplate(w, "index", nil)
 }
 
+func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
+    w.WriteHeader(status)
+    if status == http.StatusNotFound {
+        fmt.Fprint(w, "custom 404")
+    }
+}
 
 func main() {
 	fmt.Println("listening default port (:3002)")
