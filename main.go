@@ -20,7 +20,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
     w.WriteHeader(status)
     if status == http.StatusNotFound {
-        t, err := template.ParseFiles("./templates/404.html")
+        t, err := template.ParseFiles("./templates/404.html",  "./templates/header.html")
 		if err != nil {}
 		t.ExecuteTemplate(w, "404", nil)
     }
