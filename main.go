@@ -17,6 +17,16 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "index", nil)
 }
 
+func DownloadHandler(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("./templates/downloads.html" , "./templates/footer.html", "./templates/header.html")
+	if err != nil {}
+	if r.URL.Path != "/download" {
+        errorHandler(w, r, http.StatusNotFound)
+        return
+    }
+	t.ExecuteTemplate(w, "download", nil)
+}
+
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
     w.WriteHeader(status)
     if status == http.StatusNotFound {
@@ -31,8 +41,9 @@ func main() {
 	port := os.Getenv("PORT")
 	var a int
 	http.HandleFunc("/", IndexHandler)
+	http.HandleFunc("/download", DownloadHandler)
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./assets/"))))
-	fmt.Println("Server Started!")
+	fmt.Println("Server Started!" + port)
 	http.ListenAndServe(":" + port, nil)
 	fmt.Println("Server Stopped!")
 	fmt.Scan(&a)
