@@ -13,9 +13,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, err.Error())
 	}
 	t.ExecuteTemplate(w, "index", nil)
-	//
 }
-
 
 
 func main() {
