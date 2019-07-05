@@ -27,6 +27,16 @@ func DownloadHandler(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "download", nil)
 }
 
+func GSHandler(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("./templates/getstart.html" , "./templates/footer.html", "./templates/header.html")
+	if err != nil {}
+	if r.URL.Path != "/getstart" {
+        errorHandler(w, r, http.StatusNotFound)
+        return
+    }
+	t.ExecuteTemplate(w, "getstart", nil)
+}
+
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
     w.WriteHeader(status)
     if status == http.StatusNotFound {
@@ -42,6 +52,7 @@ func main() {
 	var a int
 	http.HandleFunc("/", IndexHandler)
 	http.HandleFunc("/download", DownloadHandler)
+	http.HandleFunc("/getstart", GSHandler)
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./assets/"))))
 	fmt.Println("Server Started!" + port)
 	http.ListenAndServe(":" + port, nil)
