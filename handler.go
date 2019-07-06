@@ -4,16 +4,19 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
-
-	"GOodIDEa/extensions"
 )
 
 type Handler struct {
 	Template string
 }
 
+func (m *Handler) SetTemplate(template string) string {
+	m.Template = template
+	return m.Template
+}
+
 func (m Handler) Start(template string) {
-	http.HandleFunc("/"+extensions.IsWord(m.Template, template), m.Execute)
+	http.HandleFunc("/"+m.SetTemplate(template), m.Execute)
 }
 
 func (m Handler) Execute(w http.ResponseWriter, r *http.Request) {
