@@ -1,9 +1,31 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"html/template"
 )
+
+type Handler struct {
+	Template string
+}
+
+func (m Handler) Start(template string) {
+	m.Template = template
+	http.HandleFunc("/"+m.Template, m.Execute);
+}
+
+func (m Handler) Execute(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("./templates/"+m.Template+".html" , "./templates/footer.html", "./templates/header.html")
+	if err != nil {
+		fmt.Println(err)
+	}
+	if r.URL.Path != "/" + m.Template {
+        errorHandler(w, r, http.StatusNotFound)
+        return
+    }
+	t.ExecuteTemplate(w, m.Template, nil)
+}
 
 func DownloadHandler(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("./templates/downloads.html" , "./templates/footer.html", "./templates/header.html")
@@ -25,7 +47,7 @@ func GSHandler(w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "getstart", nil)
 }
 
-func ExtensionsHandler (w http.ResponseWriter, r *http.Request) {
+func ExtensionsHandler(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("./templates/marketplace.html" , "./templates/footer.html", "./templates/header.html")
 	if err != nil {}
 	if r.URL.Path != "/market" {
@@ -35,7 +57,7 @@ func ExtensionsHandler (w http.ResponseWriter, r *http.Request) {
 	t.ExecuteTemplate(w, "market", nil)
 }
 
-func DevsHandler (w http.ResponseWriter, r *http.Request) {
+func DevsHandler(w http.ResponseWriter, r *http.Request) {
 	t, err := template.ParseFiles("./templates/devs.html" , "./templates/footer.html", "./templates/header.html")
 	if err != nil {}
 	if r.URL.Path != "/devs" {

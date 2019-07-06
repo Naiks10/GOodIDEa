@@ -24,7 +24,9 @@ func main() {
 	port := os.Getenv("PORT")
 	var a int
 	http.HandleFunc("/", IndexHandler)
-	http.HandleFunc("/download", DownloadHandler)
+	m := Handler {}
+	m.Start("downloads")
+	//http.HandleFunc("/download", DownloadHandler)
 	http.HandleFunc("/getstart", GSHandler)
 	http.HandleFunc("/market", ExtensionsHandler)
 	http.Handle("/assets/", http.StripPrefix("/assets/", http.FileServer(http.Dir("./assets/"))))
